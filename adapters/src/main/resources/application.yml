@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    hikari:
+      schema: jan
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: jan
+        show_sql: true
+        format_sql: true
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    org:
+      hibernate:
+#        type: trace
+
+multitenancy:
+  main:
+    datasource:
+      url: jdbc:postgresql://localhost:6543/postgres
+      #url: jdbc:postgresql://database.c9oec81xrkow.us-east-1.rds.amazonaws.com/postgres
+      username: postgres
+      password: Sylwia70
+      #password: Sylwia1970
+      hikari:
+        schema: jan
+    liquibase:
+      changeLog: classpath:db/changelog-main.yaml
+  shard:
+    datasource:
+      url-prefix: jdbc:postgresql://localhost:6543/
+    liquibase:
+      changeLog: classpath:db/changelog-shard.yaml
+  tenant:
+    datasource:
+      url-prefix: jdbc:postgresql://localhost:6543/
+    liquibase:
+      changeLog: classpath:db/changelog-tenant.yaml
+
+
+
+
